@@ -433,6 +433,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 0.1
   deceleration: 0.5
+  maximumWalkVelocity: 0.5
+  maximumRunVelocity: 2
 --- !u!1001 &1840601836
 PrefabInstance:
   m_ObjectHideFlags: 0
