@@ -66,13 +66,13 @@ AnimatorController:
   m_AnimatorParameters:
   - m_Name: Velocity Z
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 0.64
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Velocity X
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 0.93
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
