@@ -19,7 +19,7 @@ public class TrackerController : MonoBehaviour
         pos = transform.position;
         prev_pos = pos;
         displacement = Vector3.zero;
-        // orientation = obtener de rotation quizas con lerp
+        orientation = Quaternion.eulerAngles(transform.rotation);
         velocity = Vector3.zero;
     }
 
