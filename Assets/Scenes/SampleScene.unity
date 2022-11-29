@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -407,11 +407,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528199061}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac84a9943037cd8448a052d8270e352d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoothFactor: 1
 --- !u!95 &1528199063
 Animator:
   serializedVersion: 3
@@ -463,6 +464,7 @@ MonoBehaviour:
   deceleration: 2
   maximumWalkVelocity: 0.5
   maximumRunVelocity: 2
+  orientation: {x: 0, y: 0, z: 0}
 --- !u!114 &1528199066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,7 +478,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {x: 0, y: 0, z: 0}
-  velocity: {x: 0, y: 0, z: 0}
+  world_velocity: {x: 0, y: 0, z: 0}
+  local_velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1528199067
 MonoBehaviour:
   m_ObjectHideFlags: 0
