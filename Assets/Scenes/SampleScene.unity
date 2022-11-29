@@ -407,7 +407,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528199061}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac84a9943037cd8448a052d8270e352d, type: 3}
   m_Name: 
@@ -459,6 +459,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa57e009954f728448d6df1c7c55b841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  acceleration: 2
+  deceleration: 2
+  maximumWalkVelocity: 0.5
+  maximumRunVelocity: 2
 --- !u!114 &1528199066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,7 +484,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528199061}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40f9986a2b75e5647b1f2299b3e47c71, type: 3}
   m_Name: 

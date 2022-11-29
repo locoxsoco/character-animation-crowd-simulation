@@ -19,7 +19,7 @@ public class TrackerController : MonoBehaviour
         pos = transform.position;
         prev_pos = pos;
         displacement = Vector3.zero;
-        orientation = Quaternion.eulerAngles(transform.rotation);
+        orientation = transform.rotation.eulerAngles;
         velocity = Vector3.zero;
     }
 
@@ -31,6 +31,23 @@ public class TrackerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        
+        prev_pos = pos;
+        pos = transform.position;
+        displacement = pos - prev_pos;
+        orientation = transform.rotation * Vector3.forward;
+        velocity = displacement / Time.deltaTime;
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Forward vector
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(pos + Vector3.up*3/2,pos + orientation + Vector3.up*3/2);
+        // Speed vector
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(pos + Vector3.up,pos + velocity + Vector3.up);
+        // Displacement vector
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(prev_pos + Vector3.up/2,pos + Vector3.up/2);
     }
 }
