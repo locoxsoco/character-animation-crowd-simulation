@@ -26,9 +26,7 @@ public class OrientationManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        _orientation = Vector3.Lerp(_trackerController.orientation, _trackerController.local_velocity, smoothFactor);
         Debug.Log(_orientation);
-        float angle = Vector3.Angle(Vector3.forward, _orientation);
-        transform.rotation = Quaternion.Euler(Vector3.up*angle);
+        transform.forward = Vector3.Lerp(transform.forward, _trackerController.local_velocity, smoothFactor);
     }
 }

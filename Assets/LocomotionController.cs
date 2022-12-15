@@ -174,7 +174,10 @@ public class LocomotionController : MonoBehaviour
         }
         transform.position += Vector3.right * Time.deltaTime * _velocityX;
         
-        _animator.SetFloat(_velocityXHash,_velocityX);
-        _animator.SetFloat(_velocityZHash,_velocityZ);
+        // filtro de smooth para que la interpolacion sea mejor
+        // igual que la orientacion, lo mismo un lerp
+        // eso es porque los movimiento manuales son bruscos
+        _animator.SetFloat(_velocityXHash,_trackerController.local_velocity.x);
+        _animator.SetFloat(_velocityZHash,_trackerController.local_velocity.z);
     }
 }
