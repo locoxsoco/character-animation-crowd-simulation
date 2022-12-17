@@ -11,8 +11,9 @@ public class LocomotionController : MonoBehaviour
     private float _velocityZ = 0.0f;
     public float acceleration = 0.5f;
     public float deceleration = 1.0f;
-    public float maximumWalkVelocity = 0.5f;
-    public float maximumRunVelocity = 2.0f;
+    public float maxWalkVelocity = 1.5935f;
+    public float minWalkVelocity = -0.5f;
+    public float maxRunVelocity = 4.1249f;
     public Vector3 orientation;
     private int _velocityXHash, _velocityZHash;
     // Start is called before the first frame update
@@ -28,11 +29,15 @@ public class LocomotionController : MonoBehaviour
         _velocityZHash = Animator.StringToHash("Velocity Z");
         
         orientation = _trackerController.orientation;
+        maxWalkVelocity = 1.5935f;
+        minWalkVelocity = 0.5f;
+        maxRunVelocity = 4.1249f;
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
+        orientation = _trackerController.orientation.normalized;
         // get key input from player
         bool forwardPressed = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
         bool leftPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
@@ -44,22 +49,22 @@ public class LocomotionController : MonoBehaviour
         {
             if (runPressed)
             {
-                if (_velocityZ < maximumRunVelocity)
+                if (_velocityZ < maxRunVelocity)
                 {
                     _velocityZ += Time.deltaTime * acceleration;
                 }
                 else
                 {
-                    _velocityZ = maximumRunVelocity;
+                    _velocityZ = maxRunVelocity;
                 }
             }
             else
             {
-                if (_velocityZ < maximumWalkVelocity)
+                if (_velocityZ < maxWalkVelocity)
                 {
                     _velocityZ += Time.deltaTime * acceleration;
                 }
-                else if (_velocityZ > maximumWalkVelocity)
+                else if (_velocityZ > maxWalkVelocity)
                 {
                     _velocityZ -= Time.deltaTime * deceleration;
                 }
@@ -69,22 +74,22 @@ public class LocomotionController : MonoBehaviour
         {
             if (runPressed)
             {
-                if (_velocityZ > -maximumRunVelocity)
+                if (_velocityZ > -maxRunVelocity)
                 {
                     _velocityZ -= Time.deltaTime * acceleration;
                 }
                 else
                 {
-                    _velocityZ = -maximumRunVelocity;
+                    _velocityZ = -maxRunVelocity;
                 }
             }
             else
             {
-                if (_velocityZ > -maximumWalkVelocity)
+                if (_velocityZ > -minWalkVelocity)
                 {
                     _velocityZ -= Time.deltaTime * acceleration;
                 }
-                else if (_velocityZ < -maximumWalkVelocity)
+                else if (_velocityZ < -minWalkVelocity)
                 {
                     _velocityZ += Time.deltaTime * deceleration;
                 }
@@ -105,28 +110,28 @@ public class LocomotionController : MonoBehaviour
                 _velocityZ = 0;
             }
         }
-        transform.position += Vector3.forward * Time.deltaTime * _velocityZ;
+        transform.position += orientation * Time.deltaTime * _velocityZ;
 
         if (rightPressed)
         {
             if (runPressed)
             {
-                if (_velocityX < maximumRunVelocity)
+                if (_velocityX < maxRunVelocity)
                 {
                     _velocityX += Time.deltaTime * acceleration;
                 }
                 else
                 {
-                    _velocityX = maximumRunVelocity;
+                    _velocityX = maxRunVelocity;
                 }
             }
             else
             {
-                if (_velocityX < maximumWalkVelocity)
+                if (_velocityX < maxWalkVelocity)
                 {
                     _velocityX += Time.deltaTime * acceleration;
                 }
-                else if (_velocityX > maximumWalkVelocity)
+                else if (_velocityX > maxWalkVelocity)
                 {
                     _velocityX -= Time.deltaTime * deceleration;
                 }
@@ -136,22 +141,22 @@ public class LocomotionController : MonoBehaviour
         {
             if (runPressed)
             {
-                if (_velocityX > -maximumRunVelocity)
+                if (_velocityX > -maxRunVelocity)
                 {
                     _velocityX -= Time.deltaTime * acceleration;
                 }
                 else
                 {
-                    _velocityX = -maximumRunVelocity;
+                    _velocityX = -maxRunVelocity;
                 }
             }
             else
             {
-                if (_velocityX > -maximumWalkVelocity)
+                if (_velocityX > -maxWalkVelocity)
                 {
                     _velocityX -= Time.deltaTime * acceleration;
                 }
-                else if (_velocityX < -maximumWalkVelocity)
+                else if (_velocityX < -maxWalkVelocity)
                 {
                     _velocityX += Time.deltaTime * deceleration;
                 }
@@ -172,7 +177,7 @@ public class LocomotionController : MonoBehaviour
                 _velocityX = 0;
             }
         }
-        transform.position += Vector3.right * Time.deltaTime * _velocityX;
+        transform.position +=  Quaternion.Euler(0, 90, 0) * orientation * Time.deltaTime * _velocityX;
         
         // filtro de smooth para que la interpolacion sea mejor
         // igual que la orientacion, lo mismo un lerp

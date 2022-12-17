@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 public class OrientationManager : MonoBehaviour
 {
     
-    public float smoothFactor = 0.1f;
+    public float smoothFactor;
     private TrackerController _trackerController;
     private Vector3 _orientation;
     // Start is called before the first frame update
@@ -15,18 +15,22 @@ public class OrientationManager : MonoBehaviour
     {
         // set reference for tracker
         _trackerController = GetComponent<TrackerController>();
+        smoothFactor = 0.01f;
         
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
     }
 
     private void LateUpdate()
     {
-        Debug.Log(_orientation);
-        transform.forward = Vector3.Lerp(transform.forward, _trackerController.local_velocity, smoothFactor);
+        // if (_trackerController.local_velocity.magnitude > 0.0)
+        // {
+        //     Debug.Log("OM Orientation: " + _orientation);
+        // }
+        transform.forward = Vector3.Lerp(transform.forward, _trackerController.world_velocity, smoothFactor);
     }
 }

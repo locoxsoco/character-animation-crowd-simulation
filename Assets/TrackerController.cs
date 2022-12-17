@@ -22,26 +22,27 @@ public class TrackerController : MonoBehaviour
         prev_pos = pos;
         world_displacement = Vector3.zero;
         local_displacement = Vector3.zero;
-        orientation = transform.rotation.eulerAngles;
+        orientation = transform.forward;
         world_velocity = Vector3.zero;
         local_velocity = Vector3.zero;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     private void LateUpdate()
     {
-        prev_pos = pos;
+        orientation = transform.forward;
+        Quaternion rotation = Quaternion.LookRotation(orientation);
+        
         pos = transform.position;
-        orientation = transform.rotation * Vector3.forward;
         world_displacement = pos - prev_pos;
         local_displacement = world_displacement;
         world_velocity = world_displacement / Time.deltaTime;
-        local_velocity = local_displacement / Time.deltaTime;
+        local_velocity = transform.InverseTransformDirection(world_velocity);
+        local_velocity.y = 0;
+        Debug.Log("TC Orientation: " + orientation);
+        
+        prev_pos = pos;
+        Debug.Log("TC World Velocity: " + world_velocity);
+        Debug.Log("TC Local Velocity: " + local_velocity);
     }
 
     private void OnDrawGizmos()
