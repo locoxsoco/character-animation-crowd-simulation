@@ -6,15 +6,18 @@ public class CrowdGenerator : MonoBehaviour
 {
     public GameObject prefab;
 
-    public float minBoundary, maxBoundary;
+    private Simulator _simulator;
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 10; i++)
+        float minBoundary = -20;
+        float maxBoundary = 20;
+        _simulator = Simulator.GetInstance();
+        for (int i = 0; i < 30; i++)
         {
             Vector3 randomPosition = new Vector3(
                 Random.Range(minBoundary, maxBoundary),
-                0,
+                3,
                 Random.Range(minBoundary, maxBoundary)
             );
             Quaternion randomRotation = Quaternion.Euler(
@@ -22,8 +25,17 @@ public class CrowdGenerator : MonoBehaviour
                 Random.Range(0, 360),
                 0
             );
-            GameObject newAgent = Instantiate(prefab,randomPosition, randomRotation);
+            GameObject newAgent = (GameObject)Instantiate(prefab,randomPosition, randomRotation);
+            _simulator.agents.Add(newAgent);
+            
+            Vector3 randomGoal = new Vector3(
+                Random.Range(minBoundary, maxBoundary),
+                0,
+                Random.Range(minBoundary, maxBoundary)
+            );
+            newAgent.GetComponent<PathManager>().goal = randomGoal;
         }
+        StartCoroutine(_simulator.SimulationCoroutine());
         
     }
 

@@ -18,6 +18,6 @@ public class Agent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        GetComponent<Rigidbody>().position += maxSpeed * Time.deltaTime * velocity;
     }
 }

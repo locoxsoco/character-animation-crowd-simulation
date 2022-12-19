@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac84a9943037cd8448a052d8270e352d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothFactor: 0.1
+  smoothFactor: 0.01
 --- !u!95 &1528199063
 Animator:
   serializedVersion: 3
@@ -446,8 +446,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 2
   deceleration: 2
-  maximumWalkVelocity: 0.5
-  maximumRunVelocity: 2
+  maxWalkVelocity: 1.5935
+  minWalkVelocity: -0.5
+  maxRunVelocity: 4.1249
   orientation: {x: 0, y: 0, z: 0}
 --- !u!114 &1528199066
 MonoBehaviour:
