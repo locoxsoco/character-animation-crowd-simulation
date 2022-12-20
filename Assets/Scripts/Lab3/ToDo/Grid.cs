@@ -41,18 +41,21 @@ public class Grid : FiniteGraph<GridCell, CellConnection, GridConnections>
 		
 		GridConnections gridConnections = new GridConnections();
 		connections.Add(gridConnections);
-		for(int i=0; i<numRows-1;i++)
-			for (int j = 0; i < numColumns-1; j++)
+		// horizontal connections
+		for(int i=0; i<numRows;i++)
+			for (int j = 0; j < numColumns-1; j++)
 			{
 				gridConnections.Add(new CellConnection(nodes[i*numColumns+j],nodes[i*numColumns+(j+1)]));
-				gridConnections.Add(new CellConnection(nodes[i*numColumns+j],nodes[(i+1)*numColumns+j]));
+				gridConnections.Add(new CellConnection(nodes[i*numColumns+(j+1)],nodes[i*numColumns+j]));
 			}
-		for(int i=numRows; i>1;i--)
-			for (int j=numColumns; j>1; j--)
+		// vertical connections
+		for(int i=0; i<numRows-1;i++)
+			for (int j = 0; j < numColumns; j++)
 			{
-				gridConnections.Add(new CellConnection(nodes[i*numColumns+j],nodes[i*numColumns+(j-1)]));
-				gridConnections.Add(new CellConnection(nodes[i*numColumns+j],nodes[(i-1)*numColumns+j]));
+				gridConnections.Add(new CellConnection(nodes[i*numColumns+j],nodes[(i+1)*numColumns+j]));
+				gridConnections.Add(new CellConnection(nodes[(i+1)*numColumns+j],nodes[i*numColumns+j]));
 			}
+		
 	}
 	
 	// You have basically to fill the base fields "nodes" and "connections", 

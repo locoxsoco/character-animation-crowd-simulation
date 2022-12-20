@@ -37,7 +37,6 @@ public class TrackerController : MonoBehaviour
         local_displacement = world_displacement;
         world_velocity = world_displacement / Time.deltaTime;
         local_velocity = transform.InverseTransformDirection(world_velocity);
-        local_velocity.y = 0;
         Debug.Log("TC Orientation: " + orientation);
         
         prev_pos = pos;

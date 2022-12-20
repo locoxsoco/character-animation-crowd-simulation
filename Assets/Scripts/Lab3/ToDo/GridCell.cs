@@ -41,7 +41,9 @@ public class GridCell : Node
 	protected bool occupied;
 
 	protected Vector3 center;
-	
+
+	public Vector3 Center => center;
+
 
 	// You also add any constructors and methods to implement your grid cell node class
 

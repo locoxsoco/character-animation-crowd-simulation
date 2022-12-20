@@ -31,6 +31,6 @@ public class OrientationManager : MonoBehaviour
         // {
         //     Debug.Log("OM Orientation: " + _orientation);
         // }
-        transform.forward = Vector3.Lerp(transform.forward, _trackerController.world_velocity, smoothFactor);
+        transform.forward = Vector3.Slerp(transform.forward, _trackerController.world_velocity, smoothFactor);
     }
 }
