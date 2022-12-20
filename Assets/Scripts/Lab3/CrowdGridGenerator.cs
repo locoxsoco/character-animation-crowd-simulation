@@ -16,7 +16,7 @@ public class CrowdGridGenerator : MonoBehaviour
         float maxBoundary = 20;
         _simulator = Simulator.GetInstance();
         _grid = new Grid(minBoundary, maxBoundary, minBoundary, maxBoundary, 2);
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 10; i++)
         {
             int randomNodeId = Random.Range(0, _grid.nodes.Count-1);
             Vector3 randomPosition = _grid.nodes[randomNodeId].Center;
