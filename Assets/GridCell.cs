@@ -6,12 +6,26 @@ using PathFinding;
 
 public class GridCell : Node 
 {
-	public GridCell(int i):base(i) {
+	public GridCell(int i, float minX, float maxX, float minZ, float maxZ, bool isOccupied):base(i) {
 		// TO IMPLEMENT
+		xMin = minX;
+		xMax = maxX;
+		zMin = minZ;
+		zMax = maxZ;
+		occupied = isOccupied;
+		center = new Vector3((xMax + xMin)/2, 0, (zMax + zMin)/2);
 	}
 	public GridCell(GridCell n):base(n) {
 		// TO IMPLEMENT
+		xMin = n.xMin;
+		xMax = n.xMax;
+		zMin = n.zMin;
+		zMax = n.zMax;
+		occupied = n.occupied;
+		center = n.center;
 	}
+
+	public bool Occupied => occupied;
 
 	// Your class that represents a grid cell node derives from Node
 

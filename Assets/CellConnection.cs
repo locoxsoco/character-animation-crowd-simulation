@@ -12,5 +12,13 @@ public class CellConnection : Connection<GridCell>
 		
 		// TO IMPLEMENT		
 		// setCost ( ?? );
+		if (from.Occupied || to.Occupied)
+		{
+			setCost(1000);
+		}
+		else
+		{
+			setCost(1);
+		}
 	}
 };

@@ -27,7 +27,33 @@ public class Grid : FiniteGraph<GridCell, CellConnection, GridConnections>
 	
 	
 	// Example Constructor function declaration
-	// public Grid(float minX, float maxX, float minZ, float maxZ, float cellSize, float height = 0):base()
+	public Grid(float minX, float maxX, float minZ, float maxZ, float cellSize, float height = 0) : base()
+	{
+		numRows = Mathf.CeilToInt( (maxZ - minZ) / cellSize);
+		numColumns = Mathf.CeilToInt( (maxX - minX) / cellSize);
+		float obstacleProbability = Random.Range(0.0f, 1.0f);
+		bool obstacle = obstacleProbability < 0.2;
+		for(int i=0; i<numRows;i++)
+			for (int j = 0; i < numColumns; j++)
+			{
+				nodes.Add(new GridCell(i*numColumns+j,minX*j,minX*(j+1),minZ*i,minZ*(i+1),obstacle));
+			}
+		
+		GridConnections gridConnections = new GridConnections();
+		connections.Add(gridConnections);
+		for(int i=0; i<numRows-1;i++)
+			for (int j = 0; i < numColumns-1; j++)
+			{
+				gridConnections.Add(new CellConnection(nodes[i*numColumns+j],nodes[i*numColumns+(j+1)]));
+				gridConnections.Add(new CellConnection(nodes[i*numColumns+j],nodes[(i+1)*numColumns+j]));
+			}
+		for(int i=numRows; i>1;i--)
+			for (int j=numColumns; j>1; j--)
+			{
+				gridConnections.Add(new CellConnection(nodes[i*numColumns+j],nodes[i*numColumns+(j-1)]));
+				gridConnections.Add(new CellConnection(nodes[i*numColumns+j],nodes[(i-1)*numColumns+j]));
+			}
+	}
 	
 	// You have basically to fill the base fields "nodes" and "connections", 
 	// i.e. create your list of GridCells (with random obstacles) 
