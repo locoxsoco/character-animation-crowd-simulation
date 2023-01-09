@@ -5,6 +5,7 @@ using UnityEngine;
 public class Agent : MonoBehaviour
 {
     public float maxSpeed = 5, radius = 2, slowingDistance = 2.0f;
+    public bool slowingArrival = false;
 
     public Vector3 velocity; // magnitude indicates speed
     // Start is called before the first frame update

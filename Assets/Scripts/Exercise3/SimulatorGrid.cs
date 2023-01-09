@@ -10,8 +10,6 @@ public class SimulatorGrid : MonoBehaviour
     public static SimulatorGrid _instance = null;
     public float timestep = 0.3f;
     public List<GameObject> agents = new List<GameObject>();
-    public float minBoundary = -20;
-    public float maxBoundary = 20;
     public Grid grid;
 
     public void UpdateSimulation()

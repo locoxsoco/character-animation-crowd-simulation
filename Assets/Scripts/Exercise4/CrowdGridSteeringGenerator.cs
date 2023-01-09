@@ -6,7 +6,9 @@ public class CrowdGridSteeringGenerator : MonoBehaviour
 {
     public GameObject floor;
     public GameObject agentPrefab;
-    public int numberAgents = 30;
+    public int numberAgents = 20;
+    public GameObject agentPrefabPersonalSpace;
+    public int numberAgentsPersonalSpace = 10;
     public GameObject obstacle1;
     public GameObject obstacle2;
     public float minBoundary = -40;
@@ -31,13 +33,13 @@ public class CrowdGridSteeringGenerator : MonoBehaviour
             if (_grid.nodes[i].Occupied)
             {
                 Vector3 position = _grid.nodes[i].Center;
-                int rotationY = Random.Range(0, 360);
+                int typeObstacle = Random.Range(0, 2);
                 Quaternion randomRotation = Quaternion.Euler(
                     0,
-                    rotationY,
+                    0,
                     0
                 );
-                if (rotationY < 180)
+                if (typeObstacle == 0)
                 {
                     GameObject obstacle = Instantiate(obstacle1,position, randomRotation);
                     obstacle.transform.localScale *= cellSize;
@@ -67,6 +69,30 @@ public class CrowdGridSteeringGenerator : MonoBehaviour
                 0
             );
             GameObject newAgent = (GameObject)Instantiate(agentPrefab,randomPosition, randomRotation);
+            Agent agentComponent = newAgent.GetComponent<Agent>();
+            agentComponent.slowingArrival = false;
+            PathManagerGrid pathManagerGrid = newAgent.GetComponent<PathManagerGrid>();
+            pathManagerGrid.start = _grid.nodes[randomNodeId];
+            pathManagerGrid.grid = _grid;
+            _simulator.agents.Add(newAgent);
+        }
+        for (int i = 0; i < numberAgentsPersonalSpace; i++)
+        {
+            int randomNodeId = Random.Range(0, _grid.nodes.Count-1);
+            while (_grid.nodes[randomNodeId].Occupied || occupiedByAgents.Contains(randomNodeId))
+            {
+                randomNodeId = Random.Range(0, _grid.nodes.Count-1);
+            }
+            occupiedByAgents.Add(randomNodeId);
+            Vector3 randomPosition = _grid.nodes[randomNodeId].Center;
+            Quaternion randomRotation = Quaternion.Euler(
+                0,
+                Random.Range(0, 360),
+                0
+            );
+            GameObject newAgent = (GameObject)Instantiate(agentPrefabPersonalSpace,randomPosition, randomRotation);
+            Agent agentComponent = newAgent.GetComponent<Agent>();
+            agentComponent.slowingArrival = true;
             PathManagerGrid pathManagerGrid = newAgent.GetComponent<PathManagerGrid>();
             pathManagerGrid.start = _grid.nodes[randomNodeId];
             pathManagerGrid.grid = _grid;
@@ -74,6 +100,7 @@ public class CrowdGridSteeringGenerator : MonoBehaviour
         }
         StartCoroutine(_simulator.SimulationCoroutine());
         Destroy(agentPrefab);
+        Destroy(agentPrefabPersonalSpace);
         Destroy(obstacle1);
         Destroy(obstacle2);
         

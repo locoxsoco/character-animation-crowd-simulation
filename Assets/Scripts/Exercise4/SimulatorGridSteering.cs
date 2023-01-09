@@ -67,6 +67,7 @@ public class SimulatorGridSteering : MonoBehaviour
         {
             // Change world to "GameObject a" local reference system
             Vector3 nearAgentLocalPos = a.transform.InverseTransformPoint(nearAgent.transform.position);
+            
             // Discard if agent is behind of fully ahead of cylinder
             if (nearAgentLocalPos.z < 0.0f || nearAgentLocalPos.z > cylinderDistance)
             {
@@ -115,7 +116,15 @@ public class SimulatorGridSteering : MonoBehaviour
             if (agent.GetComponent<PathManagerGrid>().waypoints != null && agent.GetComponent<PathManagerGrid>().waypoints.Count > 1)
             {
                 Vector3 currWaypoint = agent.GetComponent<PathManagerGrid>().waypoints[1].Center;
-                Vector3 force = seekForce(agent.GetComponent<Agent>(),currWaypoint);
+                Vector3 force = Vector3.zero;
+                if (agent.GetComponent<Agent>().slowingArrival)
+                {
+                    force = arriveForce(agent.GetComponent<Agent>(),currWaypoint);
+                }
+                else
+                {
+                    force = seekForce(agent.GetComponent<Agent>(),currWaypoint);
+                }
                 Vector3 avoidForce = obstacleAvoidanceForce(agent,currWaypoint);
                 if (avoidForce.magnitude >= 0.001)
                 {

@@ -315,7 +315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 452202, guid: a31d75f154921304794bf1d122281cac, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 452202, guid: a31d75f154921304794bf1d122281cac, type: 3}
       propertyPath: m_LocalScale.x
@@ -494,6 +494,7 @@ MonoBehaviour:
   maxSpeed: 5
   radius: 2
   slowingDistance: 2
+  slowingArrival: 0
   velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &665904007
 MonoBehaviour:
@@ -508,7 +509,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalPos: {x: 0, y: 0, z: 0}
-  distanceThreshold: 0
+  distanceThreshold: 2
+  ARASearch: 1
 --- !u!114 &665904008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,7 +671,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1680826321
 GameObject:
@@ -741,7 +743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 402438, guid: bb3c6fcb21a1e4b4faa80734a481448b, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 402438, guid: bb3c6fcb21a1e4b4faa80734a481448b, type: 3}
       propertyPath: m_LocalScale.x

@@ -10,7 +10,9 @@ public class PathManagerGrid : MonoBehaviour
     public float distanceThreshold;
     public Grid grid;
     public List<GridCell> waypoints;
+    public bool ARASearch;
     private Grid_A_Star _grid_a_star;
+    private Grid_ARA _grid_ara;
     private GridHeuristic _grid_heuristic;
     private int found;
     
@@ -30,10 +32,18 @@ public class PathManagerGrid : MonoBehaviour
             goalPos = randomGoal;
             distanceThreshold = 2.0f;
             _grid_a_star = new Grid_A_Star(10,10,10);
-        
+            _grid_ara = new Grid_ARA(10,10,10);
             _grid_heuristic = new GridHeuristic(goal);
             found = 0;
-            waypoints = _grid_a_star.findpath(grid,start,goal, _grid_heuristic,ref found);
+
+            if (ARASearch)
+            {
+                waypoints = _grid_ara.findpath(grid,start,goal, _grid_heuristic,ref found);
+            }
+            else
+            {
+                waypoints = _grid_a_star.findpath(grid,start,goal, _grid_heuristic,ref found);
+            }
         }
         
     }
@@ -58,10 +68,24 @@ public class PathManagerGrid : MonoBehaviour
                 goal = grid.nodes[randomNodeId];
                 _grid_heuristic = new GridHeuristic(goal);
                 found = 0;
-                waypoints = _grid_a_star.findpath(grid,lastGoal,goal, _grid_heuristic,ref found);
+                if (ARASearch)
+                {
+                    waypoints = _grid_ara.findpath(grid,lastGoal,goal, _grid_heuristic,ref found);
+                }
+                else
+                {
+                    waypoints = _grid_a_star.findpath(grid,lastGoal,goal, _grid_heuristic,ref found);
+                }
             } else if (directionCurrWaypoint.magnitude < distanceThreshold)
             {
-                waypoints = _grid_a_star.findpath(grid,waypoints[1],goal, _grid_heuristic,ref found);
+                if (ARASearch)
+                {
+                    waypoints = _grid_ara.findpath(grid,waypoints[1],goal, _grid_heuristic,ref found);
+                }
+                else
+                {
+                    waypoints = _grid_a_star.findpath(grid,waypoints[1],goal, _grid_heuristic,ref found);
+                }
             }
         }
     }
