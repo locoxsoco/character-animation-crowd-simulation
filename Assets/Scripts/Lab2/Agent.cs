@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class Agent : MonoBehaviour
 {
-    public float maxSpeed, radius;
+    public float maxSpeed = 5, radius = 2, slowingDistance = 2.0f;
 
     public Vector3 velocity; // magnitude indicates speed
     // Start is called before the first frame update
     void Start()
     {
-        maxSpeed = 5;
-        radius = 2;
         velocity = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody>().position += maxSpeed * Time.deltaTime * velocity;
+        GetComponent<Rigidbody>().position += Time.deltaTime * velocity;
     }
 }

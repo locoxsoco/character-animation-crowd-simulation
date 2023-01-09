@@ -12,13 +12,6 @@ public class CellConnection : Connection<GridCell>
 		
 		// TO IMPLEMENT		
 		// setCost ( ?? );
-		if (from.Occupied || to.Occupied)
-		{
-			setCost(1000);
-		}
-		else
-		{
-			setCost(1);
-		}
+		setCost(Vector3.Distance(from.Center,to.Center));
 	}
 };

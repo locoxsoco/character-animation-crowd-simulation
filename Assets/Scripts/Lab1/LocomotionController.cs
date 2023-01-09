@@ -7,8 +7,8 @@ public class LocomotionController : MonoBehaviour
 {
     private Animator _animator;
     private TrackerController _trackerController;
-    private float _velocityX = 0.0f;
-    private float _velocityZ = 0.0f;
+    public float _velocityX = 0.0f;
+    public float _velocityZ = 0.0f;
     public float acceleration = 0.5f;
     public float deceleration = 1.0f;
     public float maxWalkVelocity = 1.5935f;
@@ -44,6 +44,18 @@ public class LocomotionController : MonoBehaviour
         bool backPressed = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
         bool rightPressed = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
         bool runPressed = Input.GetKey(KeyCode.LeftShift);
+        bool orientationFixedPressed = Input.GetKey(KeyCode.LeftControl);
+        bool orientationReleasePressed = Input.GetKey(KeyCode.LeftAlt);
+
+        if (orientationFixedPressed)
+        {
+            GetComponent<OrientationManager>().fixedOrientation = true;
+        }
+
+        if (orientationReleasePressed)
+        {
+            GetComponent<OrientationManager>().fixedOrientation = false;
+        }
 
         if (forwardPressed)
         {
@@ -182,7 +194,13 @@ public class LocomotionController : MonoBehaviour
         // filtro de smooth para que la interpolacion sea mejor
         // igual que la orientacion, lo mismo un lerp
         // eso es porque los movimiento manuales son bruscos
-        _animator.SetFloat(_velocityXHash,_trackerController.local_velocity.x);
-        _animator.SetFloat(_velocityZHash,_trackerController.local_velocity.z);
+        float size = Mathf.Min(_trackerController.local_velocity.magnitude, maxRunVelocity);
+        // Vector3 sdfsdf = _trackerController.local_velocity.normalized * size;
+        Vector3 interpolateLocalVelocity = Vector3.Slerp(new Vector3(_animator.GetFloat(_velocityXHash),0,_animator.GetFloat(_velocityZHash)),
+                                                        _trackerController.local_velocity, 
+                                                         0.1f);
+        
+        _animator.SetFloat(_velocityXHash,interpolateLocalVelocity.x);
+        _animator.SetFloat(_velocityZHash,interpolateLocalVelocity.z);
     }
 }

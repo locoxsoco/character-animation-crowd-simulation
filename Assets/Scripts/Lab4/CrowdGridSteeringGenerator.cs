@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrowdGridGenerator : MonoBehaviour
+public class CrowdGridSteeringGenerator : MonoBehaviour
 {
     public GameObject floor;
     public GameObject agentPrefab;
@@ -14,7 +14,7 @@ public class CrowdGridGenerator : MonoBehaviour
     public float cellSize = 8;
     public float obstacleProbability = 0.2f;
 
-    private SimulatorGrid _simulator;
+    private SimulatorGridSteering _simulator;
 
     private Grid _grid;
     // Start is called before the first frame update
@@ -22,7 +22,7 @@ public class CrowdGridGenerator : MonoBehaviour
     {
         _grid = new Grid(minBoundary, maxBoundary, minBoundary, maxBoundary, cellSize, obstacleProbability);
         floor.transform.localScale *= (maxBoundary-minBoundary)/10+1;
-        _simulator = SimulatorGrid.GetInstance();
+        _simulator = SimulatorGridSteering.GetInstance();
         _simulator.grid = _grid;
         
         // Add obstacles in Grid

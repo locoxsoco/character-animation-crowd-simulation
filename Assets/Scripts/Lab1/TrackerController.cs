@@ -27,7 +27,7 @@ public class TrackerController : MonoBehaviour
         local_velocity = Vector3.zero;
     }
     
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         orientation = transform.forward;
         Quaternion rotation = Quaternion.LookRotation(orientation);
@@ -37,17 +37,14 @@ public class TrackerController : MonoBehaviour
         local_displacement = world_displacement;
         world_velocity = world_displacement / Time.deltaTime;
         local_velocity = transform.InverseTransformDirection(world_velocity);
-        Debug.Log("TC Orientation: " + orientation);
         
         prev_pos = pos;
-        Debug.Log("TC World Velocity: " + world_velocity);
-        Debug.Log("TC Local Velocity: " + local_velocity);
     }
 
     private void OnDrawGizmos()
     {
         // Forward vector
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.cyan;
         Gizmos.DrawLine(pos + Vector3.up*3/2,pos + orientation + Vector3.up*3/2);
         // World Displacement vector
         Gizmos.color = Color.red;

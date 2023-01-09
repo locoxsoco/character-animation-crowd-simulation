@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class Simulator : MonoBehaviour
 {
     public static Simulator _instance = null;
-    public float timestep = 1;
+    public float timestep = 0.3f;
     public List<GameObject> agents = new List<GameObject>();
     public float minBoundary = -20;
     public float maxBoundary = 20;
@@ -19,19 +19,7 @@ public class Simulator : MonoBehaviour
         {
             Vector3 goalPosition = agent.GetComponent<PathManager>().goal;
             Vector3 direction = goalPosition - agent.transform.position;
-            agent.GetComponent<Agent>().velocity = direction.normalized;
-            agent.GetComponent<Rigidbody>().velocity = direction.normalized;
-            float distance_threshold = 5;
-            if (direction.magnitude < distance_threshold)
-            {
-                Vector3 randomGoal = new Vector3(
-                    Random.Range(-20,20),
-                    0,
-                    Random.Range(-20, 20)
-                );
-                agent.GetComponent<PathManager>().goal = randomGoal;
-                direction = goalPosition - transform.position;
-            }
+            agent.GetComponent<Agent>().velocity = direction.normalized * agent.GetComponent<Agent>().maxSpeed;
         }
     }
 

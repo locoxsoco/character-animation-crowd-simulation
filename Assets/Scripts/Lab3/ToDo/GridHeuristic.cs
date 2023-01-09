@@ -17,12 +17,14 @@ public class GridHeuristic : Heuristic<GridCell>
 	
 	 // generates an estimated cost to reach the stored goal from the given node
 	public override float estimateCost(GridCell fromNode){
-		return 0;// TO IMPLEMENT
+		// return 0;// TO IMPLEMENT
+		return (goalNode.Center - fromNode.Center).magnitude + fromNode.AgentsInCell.Count*(goalNode.XMax-goalNode.XMin)*2.0f;
 	}
 
 	// determines if the goal node has been reached by node
 	public override bool goalReached(GridCell node){
-		return false;// TO IMPLEMENT
+		// return false;// TO IMPLEMENT
+		return node.id == goalNode.id;
 	}
 
 };

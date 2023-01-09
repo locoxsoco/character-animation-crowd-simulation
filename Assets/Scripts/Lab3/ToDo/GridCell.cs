@@ -14,6 +14,7 @@ public class GridCell : Node
 		zMax = maxZ;
 		occupied = isOccupied;
 		center = new Vector3((xMax + xMin)/2, 0, (zMax + zMin)/2);
+		agentsInCell = new List<GameObject>();
 	}
 	public GridCell(GridCell n):base(n) {
 		// TO IMPLEMENT
@@ -23,6 +24,13 @@ public class GridCell : Node
 		zMax = n.zMax;
 		occupied = n.occupied;
 		center = n.center;
+		agentsInCell = n.agentsInCell;
+	}
+
+	public List<GameObject> AgentsInCell
+	{
+		get => agentsInCell;
+		set => agentsInCell = value;
 	}
 
 	public bool Occupied => occupied;
@@ -34,6 +42,11 @@ public class GridCell : Node
 	// EXAMPLE DATA
 	
 	protected float xMin;
+
+	public float XMin => xMin;
+
+	public float XMax => xMax;
+
 	protected float xMax;
 	protected float zMin;
 	protected float zMax;
@@ -41,6 +54,8 @@ public class GridCell : Node
 	protected bool occupied;
 
 	protected Vector3 center;
+
+	protected List<GameObject> agentsInCell;
 
 	public Vector3 Center => center;
 
